@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row mt-2">
+    <h1>Convertidor de monedas</h1>
+  </div>
+  <form action="" [formGroup]="formInput">
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Ingrese monto"
+            formControlName="amountToConvert"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-select
+            placeholder="Seleccione moneda origen"
+            formControlName="originCurrency"
+          >
+            <mat-option
+              *ngFor="let curr of curriencies"
+              [value]="curr.abbreviation"
+            >
+              {{ curr.abbreviation }} - {{ curr.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-select
+            placeholder="Seleccione moneda destino"
+            formControlName="destinationCurrency"
+            [matAutocomplete]="true"
+          >
+            <mat-option
+              *ngFor="let curr of curriencies"
+              [value]="curr.abbreviation"
+            >
+              {{ curr.abbreviation }} - {{ curr.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <button mat-raised-button color="primary" (click)="converted()">
+          Convertir
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="row" *ngIf="input && output">
+    <div class="col-md-12">
+      <h5 class="fs-5">Conversión:</h5>
+    </div>
+    <div class="col-md-6">
+        <label for=""
+          ><span class="fw-normal">1 {{ input.originCurrency }}</span> = <span class="fw-normal">{{ exchangeRageOrigin |  number : '1.2-3'}}
+          {{ input.destinationCurrency }}</span></label
+        ><br>
+        <label for=""
+          ><span class="fw-normal">1 {{ input.destinationCurrency }}</span> = <span class="fw-normal">{{ exchangeRangeDestination | number : '1.2-3'}}
+          {{ input.originCurrency }}</span></label
+        ><br />
+    </div>
+    <div class="col-md-6">
+        <label for=""
+          ><span class="fw-bold">{{ input.amountToConvert | number : '1.2-2' }} {{ input.originCurrency }}</span> equivalen a
+          <span class="fw-bold">{{ output.convertedAmount | number : '1.2-2' }} {{ input.destinationCurrency }}</span></label
+        >
+    </div>
+  </div>
+</div>
